@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   RecipeBySlugDocument,
   RecipeSlugsQuery,
@@ -30,9 +31,12 @@ const Recipe: FunctionComponent<Props> = ({ recipe }) => {
       <Wrapper>
         <RecipeStyle>
           <Thumbnail>
-            <img
+            <Image
               src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.recipeBySlug.recipe.thumbnail}`}
               alt={recipe.recipeBySlug.recipe.title}
+              layout="fill"
+              objectFit="cover"
+              quality={50}
             />
           </Thumbnail>
           <Header>
@@ -77,11 +81,12 @@ const Description = styled.div`
 `;
 
 const Thumbnail = styled.div`
+  position: relative;
   margin-bottom: 1rem;
+  width: 100%;
+  height: 400px;
 
   img {
-    width: 100%;
-    max-height: 300px;
     object-fit: cover;
     border-radius: 10px;
   }

@@ -1,8 +1,6 @@
 module.exports = {
   basePath: "/recipe",
   images: {
-    loader: "imgix",
-    // path: "http://localhost:5000",
-    path: "https://jjams.co/api/recipe",
+    domains: ["jjams.co"],
   },
 };

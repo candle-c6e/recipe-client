@@ -37,9 +37,11 @@ const RecipeCard: FunctionComponent<Props> = ({ recipe, path }) => {
         <Link href={`/recipe/${recipe.slug}`}>
           <a>
             <Image
-              src={`/uploads/recipe/${recipe.thumbnail}`}
-              alt="Picture of the author"
+              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.thumbnail}`}
+              alt={recipe.title}
               layout="fill"
+              objectFit="cover"
+              quality={50}
             />
           </a>
         </Link>
