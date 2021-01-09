@@ -16,8 +16,8 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      // uri: "https://jjams.co/api/recipe/graphql",
-      uri: "http://localhost:4000/graphql",
+      uri: "https://jjams.co/api/recipe/graphql",
+      // uri: "http://localhost:4000/graphql",
       credentials: "include",
     }),
     assumeImmutableResults: true,
