@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 import { FormGroup } from "../styled";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
-import { useRegisterMutation } from "../generated/graphql";
+import { MeDocument, useRegisterMutation } from "../generated/graphql";
 
 interface Input {
   name: string;
@@ -31,6 +31,14 @@ const Signup: FunctionComponent<{}> = () => {
           username,
           password,
         },
+      },
+      update: (cache, { data }) => {
+        return cache.writeQuery({
+          query: MeDocument,
+          data: {
+            me: data.register,
+          },
+        });
       },
     });
 

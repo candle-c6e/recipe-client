@@ -84,7 +84,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                     src={
                       auth.user.me.avatar
                         ? `${process.env.NEXT_PUBLIC_API_URL}/uploads/avatar/${auth.user.me.avatar}`
-                        : "/user-placeholder.svg"
+                        : "/recipe/user-placeholder.svg"
                     }
                     width={40}
                     height={40}
