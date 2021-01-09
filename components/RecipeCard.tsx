@@ -22,8 +22,6 @@ interface Props {
 }
 
 const RecipeCard: FunctionComponent<Props> = ({ recipe, path }) => {
-  console.log("reren");
-
   return (
     <Wrapper>
       <Thumbnail>
