@@ -22,6 +22,7 @@ interface Props {
 const Category: FunctionComponent<Props> = ({ recipes }) => {
   const router = useRouter();
   const query = router.query;
+  const forcePage = +query.category[1] - 1;
 
   const handleChangePage = ({ selected }: { selected: number }) => {
     router.push(`/category/${query.category[0]}/${selected + 1}`);
@@ -44,7 +45,7 @@ const Category: FunctionComponent<Props> = ({ recipes }) => {
         </Recipe>
         {recipes.recipes && recipes.recipes.length ? (
           <Paginate
-            forcePage={query.category[1] - 1}
+            forcePage={forcePage}
             totalPages={recipes.totalPages}
             handleChangePage={handleChangePage}
           />
