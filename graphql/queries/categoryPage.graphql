@@ -1,0 +1,8 @@
+query CategoryPage($title: String!, $page: String!) {
+  categoryPage(title: $title, page: $page) {
+    recipes {
+      ...RecipeInfo
+    }
+    totalPages
+  }
+}

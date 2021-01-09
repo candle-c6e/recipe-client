@@ -1,0 +1,10 @@
+query Recipes {
+  recipes {
+    feature {
+      ...RecipeInfo
+    }
+    lasted {
+      ...RecipeInfo
+    }
+  }
+}

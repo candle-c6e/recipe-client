@@ -1,0 +1,5 @@
+query RecipeSlugs {
+  recipeSlugs {
+    slug
+  }
+}

@@ -1,0 +1,19 @@
+query RecipeBySlug($slug: String!) {
+  recipeBySlug(slug: $slug) {
+    recipe {
+      ...RecipeInfo
+      category {
+        id
+        title
+      }
+      description
+      created_at
+    }
+    relate {
+      id
+      title
+      slug
+      thumbnail
+    }
+  }
+}

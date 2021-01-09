@@ -1,0 +1,8 @@
+query UserRecipes($page: Float!) {
+  userRecipes(page: $page) {
+    recipes {
+      ...RecipeInfo
+    }
+    totalPages
+  }
+}

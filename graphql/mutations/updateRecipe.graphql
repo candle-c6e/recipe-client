@@ -1,0 +1,6 @@
+mutation UpdateRecipe($updateRecipeInput: UpdateRecipeInput!) {
+  updateRecipe(recipeInput: $updateRecipeInput) {
+    ...RecipeInfo
+    description
+  }
+}

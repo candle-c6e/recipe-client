@@ -1,0 +1,12 @@
+fragment RecipeInfo on Recipes {
+  id
+  title
+  slug
+  thumbnail
+  category {
+    title
+  }
+  user {
+    name
+  }
+}

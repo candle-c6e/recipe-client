@@ -1,0 +1,6 @@
+query CategoriesWithTotalPages {
+  categoriesWithTotalPages {
+    title
+    total_pages
+  }
+}
