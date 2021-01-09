@@ -15,7 +15,7 @@ import { FunctionComponent } from "react";
 import SEO from "../../components/SEO";
 
 interface Props {
-  recipe: any;
+  recipe: RecipeBySlugQuery;
 }
 
 const Recipe: FunctionComponent<Props> = ({ recipe }) => {
@@ -24,8 +24,8 @@ const Recipe: FunctionComponent<Props> = ({ recipe }) => {
       <SEO
         currentURL={`https://jjams.co/recipe/recipe/${recipe.recipeBySlug.recipe.title}`}
         previewImage={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.recipeBySlug.recipe.thumbnail}`}
-        description={recipe.recipeBySlug.recipe.description}
-        pageTitle={recipe.recipeBySlug.recipe.thumbnail}
+        description={recipe.recipeBySlug.recipe.title}
+        pageTitle={recipe.recipeBySlug.recipe.title}
       />
       <Wrapper>
         <RecipeStyle>

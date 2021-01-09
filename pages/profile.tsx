@@ -18,6 +18,7 @@ import { client as apiClient } from "../utils/client";
 import RecipeCard from "../components/RecipeCard";
 import FullPageSpinner from "../components/fullPageSpinner";
 import Paginate from "../components/Paginate";
+import SEO from "../components/SEO";
 
 const Profile: FunctionComponent<{}> = () => {
   const auth = useAuth();
@@ -81,6 +82,7 @@ const Profile: FunctionComponent<{}> = () => {
 
   return (
     <Layout>
+      <SEO pageTitle="Profile" />
       <Wrapper>
         <ProfileStyle>
           <ProfileAvatar>
