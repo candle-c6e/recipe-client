@@ -18,7 +18,6 @@ import { client as apiClient } from "../utils/client";
 import RecipeCard from "../components/RecipeCard";
 import FullPageSpinner from "../components/fullPageSpinner";
 import Paginate from "../components/Paginate";
-import { NextSeo } from "next-seo";
 
 const Profile: FunctionComponent<{}> = () => {
   const auth = useAuth();
@@ -82,7 +81,6 @@ const Profile: FunctionComponent<{}> = () => {
 
   return (
     <Layout>
-      <NextSeo title="Profile" description="Sample recipe for your meal." />
       <Wrapper>
         <ProfileStyle>
           <ProfileAvatar>

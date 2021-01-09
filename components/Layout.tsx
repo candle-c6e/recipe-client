@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaTimes } from "react-icons/fa";
 import { useAuth } from "../context/auth-context";
 import { useRouter } from "next/router";
+import SEO from "./SEO";
 
 interface Props {
   children: ReactNode;
@@ -75,7 +76,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
               </a>
             </Link>
           </li>
-          {auth?.user.me ? (
+          {auth?.user?.me ? (
             <li>
               <Link href="/profile">
                 <a>

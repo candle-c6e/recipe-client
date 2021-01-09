@@ -20,7 +20,7 @@ export const AuthProvider = (props: any) => {
 
   const value = { user, loading };
 
-  if (loading) return <FullPageSpinner />;
+  // if (loading) return <FullPageSpinner />;
 
   return <AuthContext.Provider value={value} {...props} />;
 };

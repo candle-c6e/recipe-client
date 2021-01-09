@@ -1,24 +1,27 @@
 import { GetStaticProps } from "next";
+import { FunctionComponent } from "react";
 import styled from "styled-components";
-import { NextSeo } from "next-seo";
 import Feature from "../components/FeatureRecipes";
 import LastedRecipes from "../components/LastedRecipes";
 import Layout from "../components/Layout";
-import { RecipesDocument, useRecipesQuery } from "../generated/graphql";
+import SEO from "../components/SEO";
+import { RecipesDocument, RecipesQuery } from "../generated/graphql";
 import { addApolloState, initializeApollo } from "../lib/apolloClient";
 
-const Home = () => {
-  const { data } = useRecipesQuery();
+interface Props {
+  recipes: RecipesQuery;
+}
 
+const Home: FunctionComponent<Props> = ({ recipes }) => {
   return (
     <Layout>
-      <NextSeo title="Recipe" description="Sample recipe for your meal." />
+      <SEO />
       <Wrapper>
         <FeatureWrapper>
-          <Feature recipes={data.recipes.feature} />
+          <Feature recipes={recipes.recipes.feature} />
         </FeatureWrapper>
         <LastedWrapper>
-          <LastedRecipes recipes={data.recipes.lasted} />
+          <LastedRecipes recipes={recipes.recipes.lasted} />
         </LastedWrapper>
       </Wrapper>
     </Layout>
@@ -37,17 +40,19 @@ const FeatureWrapper = styled.div`
 
 const LastedWrapper = styled.div``;
 
-export async function getStaticProps(): Promise<GetStaticProps> {
+export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
 
-  await apolloClient.query({
+  const { data } = await apolloClient.query({
     query: RecipesDocument,
   });
 
   return addApolloState(apolloClient, {
-    props: {},
+    props: {
+      recipes: data,
+    },
     revalidate: 1,
   });
-}
+};
 
 export default Home;

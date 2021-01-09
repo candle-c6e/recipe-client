@@ -7,20 +7,19 @@ import {
   CategoriesWithTotalPagesQuery,
   CategoryPageDocument,
   CategoryPageQuery,
-  RecipeInfoFragment,
+  RecipesWithTotalPages,
 } from "../../generated/graphql";
 import Layout from "../../components/Layout";
 import RecipeCard from "../../components/RecipeCard";
-import { initializeApollo } from "../../lib/apolloClient";
+import { addApolloState, initializeApollo } from "../../lib/apolloClient";
 import Paginate from "../../components/Paginate";
-import { NextSeo } from "next-seo";
+import SEO from "../../components/SEO";
 
 interface Props {
-  recipes: RecipeInfoFragment[];
-  totalPages: number;
+  recipes: RecipesWithTotalPages;
 }
 
-const Category: FunctionComponent<Props> = ({ recipes, totalPages }) => {
+const Category: FunctionComponent<Props> = ({ recipes }) => {
   const router = useRouter();
 
   const handleChangePage = ({ selected }: { selected: number }) => {
@@ -29,20 +28,22 @@ const Category: FunctionComponent<Props> = ({ recipes, totalPages }) => {
 
   return (
     <Layout>
-      <NextSeo title="Recipe" description="Sample recipe for your meal." />
+      <SEO
+        currentURL={`https://jjams.co/recipe/category/${router.query.category[0]}/1`}
+      />
       <Wrapper>
         <Recipe>
-          {recipes && recipes.length ? (
-            recipes.map((recipe) => (
+          {recipes.recipes && recipes.recipes.length ? (
+            recipes.recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))
           ) : (
             <div>Not found.</div>
           )}
         </Recipe>
-        {recipes && recipes.length ? (
+        {recipes.recipes && recipes.recipes.length ? (
           <Paginate
-            totalPages={totalPages}
+            totalPages={recipes.totalPages}
             handleChangePage={handleChangePage}
           />
         ) : null}
@@ -109,7 +110,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
@@ -127,13 +128,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const { categoryPage } = data as CategoryPageQuery;
 
-    return {
+    return addApolloState(apolloClient, {
       props: {
-        recipes: categoryPage.recipes,
-        totalPages: categoryPage.totalPages,
+        recipes: categoryPage,
       },
-    };
+      revalidate: 1,
+    });
   } catch (err) {
+    console.log(err);
     return {
       redirect: {
         destination: "/",

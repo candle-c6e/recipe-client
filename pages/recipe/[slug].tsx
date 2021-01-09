@@ -1,63 +1,56 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import {
   RecipeBySlugDocument,
   RecipeSlugsQuery,
   RecipeSlugsDocument,
   RecipeBySlugQuery,
-  useRecipeBySlugQuery,
 } from "../../generated/graphql";
 import parse from "html-react-parser";
-import FullPageSpinner from "../../components/fullPageSpinner";
 import Layout from "../../components/Layout";
 import { addApolloState, initializeApollo } from "../../lib/apolloClient";
 import styled from "styled-components";
 import RecipeCard from "../../components/RecipeCard";
-import { NextSeo } from "next-seo";
+import { FunctionComponent } from "react";
+import SEO from "../../components/SEO";
 
-const Recipe = () => {
-  const router = useRouter();
-  const query = router.query.slug as string;
+interface Props {
+  recipe: any;
+}
 
-  const { data, loading } = useRecipeBySlugQuery({
-    variables: { slug: query },
-  });
-
-  if (loading) {
-    return <FullPageSpinner />;
-  }
-
+const Recipe: FunctionComponent<Props> = ({ recipe }) => {
   return (
     <Layout>
-      <NextSeo
-        title={`${data.recipeBySlug.recipe.title}`}
-        description={`${data.recipeBySlug.recipe.description}`}
+      <SEO
+        currentURL={`https://jjams.co/recipe/recipe/${recipe.recipeBySlug.recipe.title}`}
+        previewImage={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.recipeBySlug.recipe.thumbnail}`}
+        description={recipe.recipeBySlug.recipe.description}
+        pageTitle={recipe.recipeBySlug.recipe.thumbnail}
       />
       <Wrapper>
         <RecipeStyle>
           <Thumbnail>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${data.recipeBySlug.recipe.thumbnail}`}
-              alt={data.recipeBySlug.recipe.title}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.recipeBySlug.recipe.thumbnail}`}
+              alt={recipe.recipeBySlug.recipe.title}
             />
           </Thumbnail>
           <Header>
-            <h2>{data.recipeBySlug.recipe.title}</h2>
+            <h2>{recipe.recipeBySlug.recipe.title}</h2>
             <Link
-              href={`/category/${data.recipeBySlug.recipe.category.title}/1`}
+              href={`/category/${recipe.recipeBySlug.recipe.category.title}/1`}
             >
               <a>
-                <p>{data.recipeBySlug.recipe.category.title.toUpperCase()}</p>
+                <p>{recipe.recipeBySlug.recipe.category.title.toUpperCase()}</p>
               </a>
             </Link>
           </Header>
           <Description>
-            {parse(data.recipeBySlug.recipe.description)}
+            {parse(recipe.recipeBySlug.recipe.description)}
           </Description>
         </RecipeStyle>
         <Relate>
-          {data.recipeBySlug.relate.map((recipe) => (
+          {recipe.recipeBySlug.relate.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </Relate>
@@ -190,7 +183,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
@@ -206,18 +199,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const result = data as RecipeBySlugQuery;
 
-  await addApolloState(apolloClient, {
-    props: {},
+  return addApolloState(apolloClient, {
+    props: {
+      recipe: result,
+    },
     revalidate: 1,
   });
-
-  return {
-    props: {
-      recipe: result.recipeBySlug.recipe,
-      relate: result.recipeBySlug.relate,
-      revalidate: 1,
-    },
-  };
 };
 
 export default Recipe;
