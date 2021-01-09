@@ -83,5 +83,11 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0.8rem 1rem;
       }
     }
+
+    @media (max-width: 600px) {
+      li {
+        margin: 0 0.2rem;
+      }
+    }
   }
 `

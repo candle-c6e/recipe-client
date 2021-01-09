@@ -80,6 +80,11 @@ const Lasted = styled.div`
   grid-gap: 1rem;
 
   div {
+    &:first-child {
+      max-height: 150px;
+      min-height: 150px;
+    }
+
     img {
       max-height: 200px;
     }

@@ -90,6 +90,10 @@ const Thumbnail = styled.div`
     object-fit: cover;
     border-radius: 10px;
   }
+
+  @media (max-width: 600px) {
+    height: 200px;
+  }
 `;
 
 const RecipeStyle = styled.div`

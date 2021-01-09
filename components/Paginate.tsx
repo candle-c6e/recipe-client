@@ -5,11 +5,13 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 interface Props {
   totalPages: number;
   handleChangePage: ({ selected }: { selected: number }) => void;
+  forcePage?: number;
 }
 
 const Paginate: FunctionComponent<Props> = ({
   totalPages,
   handleChangePage,
+  forcePage,
 }) => {
   return (
     <ReactPaginate
@@ -21,6 +23,7 @@ const Paginate: FunctionComponent<Props> = ({
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       onPageChange={handleChangePage}
+      forcePage={forcePage}
       containerClassName={"pagination"}
       activeClassName={"active"}
     />

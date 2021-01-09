@@ -146,6 +146,8 @@ const Nav = styled.nav`
   }
 
   @media (max-width: 600px) {
+    min-height: 5rem;
+
     #nav-mobile {
       display: flex;
     }
@@ -187,6 +189,7 @@ const Menu = styled.ul<{ isShow: boolean }>`
         display: block;
       }
 
+      margin: 0;
       margin-bottom: 4rem;
       font-size: 1.2rem;
       color: #fff;

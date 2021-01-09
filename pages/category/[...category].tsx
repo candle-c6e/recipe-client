@@ -21,15 +21,16 @@ interface Props {
 
 const Category: FunctionComponent<Props> = ({ recipes }) => {
   const router = useRouter();
+  const query = router.query;
 
   const handleChangePage = ({ selected }: { selected: number }) => {
-    router.push(`/category/${router.query.category[0]}/${selected + 1}`);
+    router.push(`/category/${query.category[0]}/${selected + 1}`);
   };
 
   return (
     <Layout>
       <SEO
-        currentURL={`https://jjams.co/recipe/category/${router.query.category[0]}/1`}
+        currentURL={`https://jjams.co/recipe/category/${query.category[0]}/1`}
       />
       <Wrapper>
         <Recipe>
@@ -43,6 +44,7 @@ const Category: FunctionComponent<Props> = ({ recipes }) => {
         </Recipe>
         {recipes.recipes && recipes.recipes.length ? (
           <Paginate
+            forcePage={query.category[1] - 1}
             totalPages={recipes.totalPages}
             handleChangePage={handleChangePage}
           />

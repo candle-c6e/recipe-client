@@ -111,7 +111,11 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 600px) {
-    margin: 10rem 0;
+    margin: 7rem 0;
+
+    h1 {
+      font-size: 1.4rem;
+    }
   }
 `;
 
