@@ -22,7 +22,7 @@ const Recipe: FunctionComponent<Props> = ({ recipe }) => {
   return (
     <Layout>
       <SEO
-        currentURL={`https://jjams.co/recipe/recipe/${recipe.recipeBySlug.recipe.title}`}
+        currentURL={`https://jjams.co/recipe/recipe/${recipe.recipeBySlug.recipe.slug}`}
         previewImage={`${process.env.NEXT_PUBLIC_API_URL}/uploads/recipe/${recipe.recipeBySlug.recipe.thumbnail}`}
         description={recipe.recipeBySlug.recipe.title}
         pageTitle={recipe.recipeBySlug.recipe.title}
