@@ -1,4 +1,5 @@
 module.exports = {
+  basePath: "/recipe",
   images: {
     loader: "imgix",
     // path: "http://localhost:5000",

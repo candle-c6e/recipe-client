@@ -76,7 +76,7 @@ const Profile: FunctionComponent<{}> = () => {
   const handleLogout = async () => {
     const { data } = await logout();
     if (data.logout) {
-      window.location.href = "/";
+      window.location.href = "/recipe";
     }
   };
 
